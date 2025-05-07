@@ -131,6 +131,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.9.tgz#50dea3616bc8191fb8e112283b49eaff03e78429"
   integrity sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==
 
+"@gfazioli/mantine-text-animate@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@gfazioli/mantine-text-animate/-/mantine-text-animate-1.0.3.tgz#063005650c1bef01c7910175655761cb923e3805"
+  integrity sha512-wKM5LpO1maKDCdDkvkxYoSC4EPNavF5MpwuWjT0QtGlBqXDK0f3ZRe5QlttTcVgINOaPmvxhHkTF7/Z6PdiKmw==
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"
