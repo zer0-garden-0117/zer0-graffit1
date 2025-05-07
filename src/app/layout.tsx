@@ -4,6 +4,7 @@ import '@mantine/core/styles.css';
 import '@gfazioli/mantine-text-animate/styles.css';
 
 import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
+import { AppShellLayout } from '@/components/AppShellLayout/AppShellLayout';
 
 export const metadata = {
   title: 'My Mantine app',
@@ -21,7 +22,11 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider>{children}</MantineProvider>
+        <MantineProvider>
+          <AppShellLayout>
+            {children}
+          </AppShellLayout>
+        </MantineProvider>
       </body>
     </html>
   );
