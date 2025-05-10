@@ -1,6 +1,7 @@
 'use client';
 
 import { AppShell } from "@mantine/core";
+import { Header } from "../Header/Header";
 
 export const AppShellLayout: React.FC<{ children: React.ReactNode }> = ({
   children
@@ -31,6 +32,7 @@ export const AppShellLayout: React.FC<{ children: React.ReactNode }> = ({
       })}
     >
       <AppShell.Header>
+        <Header />
       </AppShell.Header>
       <AppShell.Main>
         {children}
