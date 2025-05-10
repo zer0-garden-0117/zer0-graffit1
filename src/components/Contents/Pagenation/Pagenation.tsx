@@ -1,27 +1,34 @@
 'use client';
 
 import { Pagination as MantinePagination } from '@mantine/core';
-import Link from 'next/link';
+import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 interface PageProps {
   type: string;
-  pages?: number[]; // optionalに変更
-  currentPage?: number;
+  pages?: number[];
 }
 
-const Pagination = ({ type, pages = [], currentPage = 1 }: PageProps) => {
+const Pagination = ({ type, pages = [] }: PageProps) => {
   const totalPages = pages.length;
+  const router = useRouter()
+  const params = useParams();
+  const pageFromUrl = params.page ? Number(params.page) : 1;
+  console.log(pageFromUrl)
+  const [currentPage, setCurrentPage] = useState<number>(pageFromUrl);
+  const onPageChange = (page: number) => {
+    setCurrentPage(page)
+    router.push(`/${type}/${page}`)
+  };
 
-  if (totalPages <= 1) return null; // 1ページ以下の場合は表示しない
+
+  if (totalPages <= 1) return null;
 
   return (
     <MantinePagination
+      onChange={onPageChange}
       total={totalPages}
       value={currentPage}
-      getItemProps={(page) => ({
-        component: Link,
-        href: `/${type}/${page}`,
-      })}
       siblings={1}
       boundaries={1}
     />

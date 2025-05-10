@@ -21,7 +21,6 @@ export default async function Home() {
         <Pagination
           type="page"
           pages={pageData.pages}
-          currentPage={pageData.currentPage}
         />
       </Group>
     </>

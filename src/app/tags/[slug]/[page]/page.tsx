@@ -18,8 +18,9 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const tag = decodeURIComponent(params.slug);
-  const title = `${tag} - ${params.page}ページ目 | Nemutai`;
+  const param = await params
+  const tag = decodeURIComponent(param.slug);
+  const title = `${tag} - ${param.page}ページ目`;
   return {
     title: title,
     description: `${tag}`,
@@ -68,9 +69,10 @@ export default async function TagPage({
 }: {
   params: { slug: string; page: number };
 }) {
-  const posts = await getTagsData(params.slug);
+  const param = await params
+  const posts = await getTagsData(param.slug);
 
-  const pageData: PageData = createPageData(params.page, posts.length);
+  const pageData: PageData = createPageData(param.page, posts.length);
 
   return (
     <>
@@ -84,9 +86,8 @@ export default async function TagPage({
       {/* ページネーション */}
       <Group justify="center" mt="xl">
         <Pagination
-          type={`tags/${params.slug}`}
+          type={`tags/${param.slug}`}
           pages={pageData.pages}
-          currentPage={pageData.currentPage}
         />
       </Group>
     </>

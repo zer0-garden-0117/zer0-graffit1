@@ -13,7 +13,8 @@ export async function generateMetadata(
   { params }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const title = `${params.page}ページ目`;
+  const param = await params
+  const title = `${param.page}ページ目`;
   return {
     title: `${title} | ブログタイトル`,
     description: `${title}`,
@@ -37,9 +38,10 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: { page: number } }) {
+  const param = await params
   const posts = await getPostData();
 
-  const pageData: PageData = createPageData(params.page, posts.length);
+  const pageData: PageData = createPageData(param.page, posts.length);
 
   return (
     <>
@@ -55,7 +57,6 @@ export default async function Page({ params }: { params: { page: number } }) {
         <Pagination
           type="page"
           pages={pageData.pages}
-          currentPage={pageData.currentPage}
         />
       </Group>
     </>

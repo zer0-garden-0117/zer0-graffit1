@@ -64,7 +64,6 @@ export default async function TagPage({ params }: { params: { slug: string } }) 
         <Pagination
           type={`tags/${param.slug}`}
           pages={pageData.pages}
-          currentPage={pageData.currentPage}
         />
       </Group>
     </>
