@@ -3,6 +3,7 @@ import { POSTS_PER_PAGE } from "../../../lib/constants";
 import { PageData, createPageData, getPostData } from "../../../lib/functions";
 import PostCard from "@/components/Contents/PostCard/PostCard";
 import Pagination from "@/components/Contents/Pagenation/Pagenation";
+import { SimpleGrid, Group } from "@mantine/core";
 
 type Props = {
   params: { page: number };
@@ -41,19 +42,22 @@ export default async function Page({ params }: { params: { page: number } }) {
   const pageData: PageData = createPageData(params.page, posts.length);
 
   return (
-    <div className="container">
-      <div className="row">
+    <>
+      {/* 記事一覧表示 */}
+      <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="lg">
         {posts.slice(pageData.start, pageData.end).map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}
-      </div>
-      <div className="mb-3">
+      </SimpleGrid>
+
+      {/* ページネーション */}
+      <Group justify="center" mt="xl">
         <Pagination
           type="page"
           pages={pageData.pages}
           currentPage={pageData.currentPage}
         />
-      </div>
-    </div>
+      </Group>
+    </>
   );
 }

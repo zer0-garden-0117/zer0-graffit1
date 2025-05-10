@@ -8,6 +8,7 @@ import {
 } from "../../../../lib/functions";
 import PostCard from "@/components/Contents/PostCard/PostCard";
 import Pagination from "@/components/Contents/Pagenation/Pagenation";
+import { SimpleGrid, Group } from "@mantine/core";
 
 type Props = {
   params: { slug: string; page: number };
@@ -73,20 +74,21 @@ export default async function TagPage({
 
   return (
     <>
-      <div className="my-8">
-        <div className="row">
-          {posts.slice(pageData.start, pageData.end).map((post) => (
-            <PostCard key={post.title} post={post} />
-          ))}
-        </div>
-        <div className="mb-3">
-          <Pagination
-            type={`tags/${params.slug}`}
-            pages={pageData.pages}
-            currentPage={pageData.currentPage}
-          />
-        </div>
-      </div>
+      {/* 記事一覧表示 */}
+      <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="lg">
+        {posts.slice(pageData.start, pageData.end).map((post) => (
+          <PostCard key={post.slug} post={post} />
+        ))}
+      </SimpleGrid>
+
+      {/* ページネーション */}
+      <Group justify="center" mt="xl">
+        <Pagination
+          type={`tags/${params.slug}`}
+          pages={pageData.pages}
+          currentPage={pageData.currentPage}
+        />
+      </Group>
     </>
   );
 }
