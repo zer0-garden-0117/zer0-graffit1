@@ -5,15 +5,21 @@ import { Card, Text, Group, Badge, Image, Title } from '@mantine/core';
 import Link from 'next/link';
 
 export default function PostCard({ post }: { post: PostItem }) {
+  const onIconClick = () => {
+    setColorScheme(colorScheme === 'dark' ? 'light' : 'dark');
+  };
+
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
       {post.image && (
         <Card.Section>
+          <Link href={`/posts/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <Image
             src={post.image}
             height={160}
             alt={post.title}
           />
+          </Link>
         </Card.Section>
       )}
 
