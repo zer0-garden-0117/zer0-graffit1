@@ -1,10 +1,9 @@
 import '@mantine/core/styles.css';
 import { type ReactNode } from "react";
 import { MantineProvider } from '@mantine/core';
-import { Caveat, Noto_Sans_JP } from 'next/font/google';
+import { Inter, Noto_Sans_JP } from 'next/font/google';
 
-// Montserrat と Noto Sans JP をインポート
-const caveat = Caveat({
+const inter = Inter({
   weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
@@ -24,8 +23,8 @@ export const CustomMantineProvider: React.FC<CustomMantineProviderProps> = ({ ch
   return (
     <MantineProvider
       theme={{
-        fontFamily: `${caveat.style.fontFamily}, ${notoSansJP.style.fontFamily}, sans-serif`,
-        headings: { fontFamily: `${caveat.style.fontFamily}, ${notoSansJP.style.fontFamily}, sans-serif` },
+        fontFamily: `${inter.style.fontFamily}, ${notoSansJP.style.fontFamily}, sans-serif`,
+        headings: { fontFamily: `${inter.style.fontFamily}, ${notoSansJP.style.fontFamily}, sans-serif` },
       }}
     >
       {children}
