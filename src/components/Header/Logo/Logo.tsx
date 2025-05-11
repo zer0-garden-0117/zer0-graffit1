@@ -20,12 +20,13 @@ export const Logo: React.FC<LogoProps> = () => {
       style={{
         cursor: 'pointer',
         display: 'inline-block',
+        fontSize: '24px'
       }}
     >
       <TextAnimate.Typewriter
         value="er0 Graffit1"
         leftSection={
-          <Text c="blue">
+          <Text c="blue" size="xl" fw={700}>
             z
           </Text>
         }
@@ -33,6 +34,8 @@ export const Logo: React.FC<LogoProps> = () => {
         withCursor={false}
         speed={0.2}
         variant="gradient"
+        size="xl" 
+        fw={700}
         gradient={{ from: 'blue', to: 'hotpink', deg: 90 }}
       />
     </Box>

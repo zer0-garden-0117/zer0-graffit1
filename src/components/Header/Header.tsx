@@ -7,7 +7,7 @@ import { GithubLink } from './GithubLink/GithubLink';
 export const Header: React.FC = () => {
   return (
     <>
-      <Group justify="space-between" w="100%" gap="8" mt={10} mr={10} ml={10}>
+      <Group justify="space-between" w="100%" gap="8" mt={10} pr={20} ml={10}>
         <Logo />
         <Group gap="8">
           <DarkMode />
