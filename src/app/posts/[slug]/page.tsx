@@ -23,8 +23,10 @@ import {
   Box,
   Divider,
   Card,
+  Space,
 } from "@mantine/core";
 import { CiCalendarDate } from "react-icons/ci";
+import GiscusComments from "@/components/Contents/GiscusComments/GiscusComments";
 
 type Props = {
   params: { slug: string };
@@ -96,6 +98,7 @@ export default async function Post({ params }: Props) {
   const postData = await createPostData(param.slug);
 
   return (
+    <>
     <Card
       radius="md"
       p="xl"
@@ -230,5 +233,15 @@ export default async function Post({ params }: Props) {
         />
       </Stack>
     </Card>
+    <Space h={"md"}/>
+    <Card
+      radius="md"
+      p="xl"
+      withBorder
+      shadow="sm"
+    >
+      <GiscusComments />
+    </Card>
+    </>
   );
 }
