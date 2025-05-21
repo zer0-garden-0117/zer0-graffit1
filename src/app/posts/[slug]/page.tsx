@@ -24,9 +24,16 @@ import {
   Divider,
   Card,
   Space,
+  List,
+  Blockquote,
+  Code,
+  Anchor,
+  Paper,
+  useMantineTheme,
 } from "@mantine/core";
 import { CiCalendarDate } from "react-icons/ci";
 import GiscusComments from "@/components/Contents/GiscusComments/GiscusComments";
+import parse, { DOMNode, HTMLReactParserOptions, domToReact } from "html-react-parser";
 
 type Props = {
   params: { slug: string };
@@ -38,7 +45,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const param = await params;
   const slug = param.slug;
-  const post = await createPostData(slug);
+  const post = await createPostData(slug); 
 
   return {
     title: `${post.title} | ブログタイトル`,
@@ -93,155 +100,193 @@ async function createPostData(slug: string): Promise<PostItem> {
   };
 }
 
+const MantineMarkdownRenderer = ({ html }: { html: string }) => {
+
+  const options: HTMLReactParserOptions = {
+    replace: (domNode) => {
+      if (domNode.type === "tag" && domNode.name) {
+        switch (domNode.name) {
+          case "h1":
+            return (
+              <Title order={1} mt="xl" mb="md">
+                {domToReact(domNode.children as DOMNode[] as DOMNode[], options)}
+              </Title>
+            );
+          case "h2":
+            return (
+              <Title order={2} mt="xl" mb="md">
+                {domToReact(domNode.children as DOMNode[], options)}
+              </Title>
+            );
+          case "h3":
+            return (
+              <Title order={3} mt="lg" mb="sm">
+                {domToReact(domNode.children as DOMNode[], options)}
+              </Title>
+            );
+          case "p":
+            return (
+              <Text mb="md" size="lg">
+                {domToReact(domNode.children as DOMNode[], options)}
+              </Text>
+            );
+          // case "ul":
+          //   return (
+          //     <List withPadding mb="md" size="lg">
+          //       {domToReact(domNode.children as DOMNode[], options)}
+          //     </List>
+          //   );
+          // case "ol":
+          //   return (
+          //     <List type="ordered" withPadding mb="md" size="lg">
+          //       {domToReact(domNode.children as DOMNode[], options)}
+          //     </List>
+          //   );
+          // case "li":
+          //   return (
+          //     <List withPadding mb="md" size="lg">1
+          //       {domToReact(domNode.children as DOMNode[], options)}
+          //     </List>
+          //   );
+          case "a":
+            return (
+              <Anchor
+                href={domNode.attribs?.href}
+                target="_blank"
+                rel="nofollow"
+                underline='always'
+              >
+                {domToReact(domNode.children as DOMNode[], options)}
+              </Anchor>
+            );
+          case "blockquote":
+            return (
+              <Blockquote
+                mb="md"
+                cite={domNode.attribs?.cite}
+              >
+                {domToReact(domNode.children as DOMNode[], options)}
+              </Blockquote>
+            );
+          case "pre":
+            return (
+              <Box mb="md">
+                <Code block>{domToReact(domNode.children as DOMNode[], options)}</Code>
+              </Box>
+            );
+          case "code":
+            return <Code>{domToReact(domNode.children as DOMNode[], options)}</Code>;
+          case "img":
+            return (
+              <Box
+                my="xl"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <Image
+                  src={domNode.attribs?.src}
+                  alt={domNode.attribs?.alt || ""}
+                  radius="md"
+                  style={{ maxWidth: "100%" }}
+                />
+              </Box>
+            );
+          default:
+            return null;
+        }
+      }
+    },
+  };
+
+  return <>{parse(html, options)}</>;
+};
+
 export default async function Post({ params }: Props) {
   const param = await params;
   const postData = await createPostData(param.slug);
 
   return (
     <>
-    <Card
-      radius="md"
-      p="xl"
-      withBorder
-      shadow="sm"
-      // style={{ backgroundColor: 'white' }}
-    >
-      <Stack gap="lg">
-        {postData.image && (
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: '16px',
-            }}
-          >
-            <Image
-              src={postData.image}
-              alt={postData.title}
-              radius="md"
-              fit="contain"
+      <Card radius="md" p="xl" withBorder shadow="sm">
+        <Stack gap="lg">
+          {postData.image && (
+            <Box
               style={{
-                maxHeight: 400,
-                width: "100%",
-                objectFit: "cover",
+                display: "flex",
+                justifyContent: "center",
+                marginBottom: "16px",
               }}
-            />
-          </Box>
-        )}
-
-        <Stack gap="xs">
-          <Title order={1} w={800} c="dark">
-            {postData.title}
-          </Title>
-
-          <Group gap="3">
-            <CiCalendarDate size={18} color="#495057"/>
-            <Text size="sm" c="dimmed" mt={2}>
-              {new Date(postData.date).toLocaleDateString("ja-JP", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </Text>
-          </Group>
-
-          {postData.tags && postData.tags.length > 0 && (
-            <Group gap="xs">
-              {postData.tags.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="filled"
-                  radius="sm"
-                  component={Link}
-                  href={`/tags/${tag}`}
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor: '#f1f3f5',
-                    color: '#495057',
-                    "&:hover": {
-                      transform: "translateY(-1px)",
-                      transition: "transform 0.2s ease",
-                      backgroundColor: '#e9ecef',
-                    },
-                  }}
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </Group>
+            >
+              <Image
+                src={postData.image}
+                alt={postData.title}
+                radius="md"
+                fit="contain"
+                style={{
+                  maxHeight: 400,
+                  width: "100%",
+                  objectFit: "cover",
+                }}
+              />
+            </Box>
           )}
+
+          <Stack gap="xs">
+            <Title order={1} c="dark">
+              {postData.title}
+            </Title>
+
+            <Group gap="3">
+              <CiCalendarDate size={18} color="#495057" />
+              <Text size="sm" c="dimmed" mt={2}>
+                {new Date(postData.date).toLocaleDateString("ja-JP", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </Text>
+            </Group>
+
+            {postData.tags && postData.tags.length > 0 && (
+              <Group gap="xs">
+                {postData.tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="filled"
+                    radius="sm"
+                    component={Link}
+                    href={`/tags/${tag}`}
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor: "#f1f3f5",
+                      color: "#495057",
+                      "&:hover": {
+                        transform: "translateY(-1px)",
+                        transition: "transform 0.2s ease",
+                        backgroundColor: "#e9ecef",
+                      },
+                    }}
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </Group>
+            )}
+          </Stack>
+
+          <Divider />
+
+          <Paper p="md" withBorder>
+            <MantineMarkdownRenderer html={postData.contentHtml} />
+          </Paper>
         </Stack>
-
-        <Divider />
-
-        <Box
-          className="markdown-content"
-          style={{
-            "& h2": {
-              marginTop: '24px',
-              marginBottom: '16px',
-              fontWeight: 700,
-              fontSize: '20px',
-              borderBottom: '1px solid #e9ecef',
-              paddingBottom: '10px',
-              color: '#212529',
-            },
-            "& h3": {
-              marginTop: '20px',
-              marginBottom: '12px',
-              fontWeight: 600,
-              fontSize: '18px',
-              color: '#212529',
-            },
-            "& pre": {
-              borderRadius: '8px',
-              marginTop: '16px',
-              marginBottom: '16px',
-              backgroundColor: '#f8f9fa',
-              padding: '16px',
-              overflow: 'auto',
-            },
-            "& code": {
-              borderRadius: '4px',
-              padding: '4px 8px',
-              backgroundColor: '#f8f9fa',
-              color: '#e64980',
-            },
-            "& a": {
-              color: '#228be6',
-              textDecoration: "underline",
-            },
-            "& img": {
-              maxWidth: "100%",
-              borderRadius: '8px',
-              marginTop: '16px',
-              marginBottom: '16px',
-            },
-            "& blockquote": {
-              borderLeft: '4px solid #e9ecef',
-              paddingLeft: '16px',
-              marginLeft: 0,
-              color: '#495057',
-              fontStyle: "italic",
-            },
-            "& p": {
-              color: '#212529',
-              lineHeight: 1.6,
-            },
-          }}
-          dangerouslySetInnerHTML={{ __html: postData.contentHtml }}
-        />
-      </Stack>
-    </Card>
-    <Space h={"md"}/>
-    <Card
-      radius="md"
-      p="xl"
-      withBorder
-      shadow="sm"
-    >
-      <GiscusComments />
-    </Card>
+      </Card>
+      <Space h={"md"} />
+      <Card radius="md" p="xl" withBorder shadow="sm">
+        <GiscusComments />
+      </Card>
     </>
   );
 }
