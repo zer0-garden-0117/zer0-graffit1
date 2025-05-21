@@ -249,15 +249,14 @@ export default async function Post({ params }: Props) {
               <Group gap="xs">
                 {postData.tags.map((tag) => (
                   <Badge
+                    color="blue"
+                    variant="light"
                     key={tag}
-                    variant="filled"
-                    radius="sm"
+                    radius="md"
                     component={Link}
                     href={`/tags/${tag}`}
                     style={{
                       cursor: "pointer",
-                      backgroundColor: "#f1f3f5",
-                      color: "#495057",
                       "&:hover": {
                         transform: "translateY(-1px)",
                         transition: "transform 0.2s ease",
