@@ -3,10 +3,10 @@ date: "2025-05-12"
 description: ""
 image: "/images/sample.png"
 tags: ["X", "X API v2", "Twitter"]
-title: "X API v2を使って画像を添付して投稿"
+title: "X API v2を使って画像をポストする"
 ---
 
-## X API v2を使って画像を添付して投稿
+## X API v2を使って画像をポストする
 
 ### 前提
 
@@ -23,9 +23,9 @@ title: "X API v2を使って画像を添付して投稿"
 
 ### X Developersの設定（登録、プロジェクトとアプリ作成、認証設定）
 
-下記参照
+下記を参考に設定しました。
 
-- [https://qiita.com/hisashi\_matsui/items/55e445b6a34a522dcbd8#oauth-20-flow-with-pkce%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B](https://qiita.com/hisashi_matsui/items/55e445b6a34a522dcbd8#oauth-20-flow-with-pkce%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
+ - [X APIを使用する](https://qiita.com/hisashi_matsui/items/55e445b6a34a522dcbd8#oauth-20-flow-with-pkce%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
 
 ### 認可リクエスト
 
