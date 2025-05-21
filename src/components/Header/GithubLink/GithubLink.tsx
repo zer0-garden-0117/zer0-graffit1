@@ -5,7 +5,7 @@ import { BsGithub } from "react-icons/bs";
 export const GithubLink: React.FC = () => {
   
   const onIconClick = async () => {
-    window.location.href = 'https://github.com/zer0-garden-0117/angel-sandbox'
+    window.location.href = 'https://github.com/zer0-garden-0117/zer0-graffit1'
   };
 
   return (
