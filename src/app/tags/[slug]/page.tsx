@@ -1,21 +1,21 @@
 import { PostItem } from "../../../lib/types";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { PageData, createPageData, getPostData, getTagsData } from "../../../lib/functions";
 import PostCard from "@/components/Contents/PostCard/PostCard";
 import Pagination from "@/components/Contents/Pagenation/Pagenation";
 import { SimpleGrid, Group } from "@mantine/core";
 
 type Props = {
-  params: { slug: string }
-}
+  params: Promise<{ slug: string }>;
+};
 
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-  const param = await params
-  const tag = decodeURIComponent(param.slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const tag = decodeURIComponent(slug);
   return {
     title: `${tag} | ブログタイトル`,
     description: `${tag}`,
-  }
+  };
 }
 
 // 静的ルートの作成
@@ -26,29 +26,19 @@ export async function generateStaticParams() {
   posts.forEach((post: PostItem) => {
     if (post.tags) {
       post.tags.forEach((tag: string) => {
-        return allTags.add(encodeURIComponent(tag));
+        allTags.add(encodeURIComponent(tag));
       });
     }
   });
 
-  const params = Array.from(allTags).map((tag) => {
-    return {
-      path: `/tags/${tag}`,
-      slug: tag,
-    };
-  });
-
-  return params;
+  return Array.from(allTags).map((tag) => (
+    { slug: tag }));
 }
 
-export default async function TagPage({ params }: { params: { slug: string } }) {
-  const param = await params
-  const posts = await getTagsData(param.slug);
-
-  const pageData: PageData = createPageData(
-    1,
-    posts.length
-  );
+export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const posts = await getTagsData(slug);
+  const pageData: PageData = createPageData(1, posts.length);
 
   return (
     <>
@@ -62,7 +52,7 @@ export default async function TagPage({ params }: { params: { slug: string } }) 
       {/* ページネーション */}
       <Group justify="center" mt="xl">
         <Pagination
-          type={`tags/${param.slug}`}
+          type={`tags/${slug}`}
           pages={pageData.pages}
         />
       </Group>

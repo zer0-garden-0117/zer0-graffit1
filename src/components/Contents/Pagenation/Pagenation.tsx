@@ -4,7 +4,7 @@ import { Pagination as MantinePagination } from '@mantine/core';
 import { useParams, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-interface PageProps {
+export interface PageProps {
   type: string;
   pages?: number[];
 }

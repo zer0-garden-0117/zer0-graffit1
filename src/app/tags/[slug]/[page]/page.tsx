@@ -1,5 +1,5 @@
 import { PostItem } from "../../../../lib/types";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import {
   PageData,
   createPageData,
@@ -11,12 +11,11 @@ import Pagination from "@/components/Contents/Pagenation/Pagenation";
 import { SimpleGrid, Group } from "@mantine/core";
 
 type Props = {
-  params: { slug: string; page: number };
+  params: Promise<{ slug: string; page: number }>;
 };
 
 export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
+  { params }: Props
 ): Promise<Metadata> {
   const param = await params
   const tag = decodeURIComponent(param.slug);
@@ -44,7 +43,7 @@ export async function generateStaticParams() {
     }
   });
 
-  let params: { path: string; slug: string; page: string }[] = [];
+  const params: { path: string; slug: string; page: string }[] = [];
 
   // ページ数で按分
   for (const key in tagMaps) {
@@ -67,7 +66,7 @@ export async function generateStaticParams() {
 export default async function TagPage({
   params,
 }: {
-  params: { slug: string; page: number };
+  params: Promise<{ slug: string; page: number }>;
 }) {
   const param = await params
   const posts = await getTagsData(param.slug);

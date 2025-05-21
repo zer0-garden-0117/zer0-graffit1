@@ -1,20 +1,17 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { POSTS_PER_PAGE } from "../../../lib/constants";
 import { PageData, createPageData, getPostData } from "../../../lib/functions";
 import PostCard from "@/components/Contents/PostCard/PostCard";
 import Pagination from "@/components/Contents/Pagenation/Pagenation";
 import { SimpleGrid, Group } from "@mantine/core";
 
-type Props = {
-  params: { page: number };
+type PageProps = {
+  params: Promise<{ page: string }>;
 };
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  const param = await params
-  const title = `${param.page}ページ目`;
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { page } = await params;
+  const title = `${page}ページ目`;
   return {
     title: `${title} | ブログタイトル`,
     description: `${title}`,
@@ -27,21 +24,17 @@ export async function generateStaticParams() {
 
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
-  const pages = Array.from({ length: totalPages }, (_, i) => {
-    return {
-      path: `/page/${i + 1}`,
-      page: `${i + 1}`,
-    };
-  });
-
-  return pages;
+  return Array.from({ length: totalPages }, (_, i) => ({
+    page: (i + 1).toString(), // 文字列型で返す
+  }));
 }
 
-export default async function Page({ params }: { params: { page: number } }) {
-  const param = await params
+export default async function Page({ params }: PageProps) {
+  const { page } = await params;
   const posts = await getPostData();
+  const currentPage = parseInt(page) || 1; // 数値に変換
 
-  const pageData: PageData = createPageData(param.page, posts.length);
+  const pageData: PageData = createPageData(currentPage, posts.length);
 
   return (
     <>

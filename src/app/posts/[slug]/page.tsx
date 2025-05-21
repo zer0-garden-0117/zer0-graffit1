@@ -11,7 +11,7 @@ import rehypePrism from "rehype-prism-plus";
 import rehypeStringify from "rehype-stringify";
 import rehypeExternalLinks from "rehype-external-links";
 import { PostItem } from "../../../lib/types";
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { getPostData } from "../../../lib/functions";
 import {
   Title,
@@ -24,24 +24,21 @@ import {
   Divider,
   Card,
   Space,
-  List,
   Blockquote,
   Code,
   Anchor,
-  Paper,
-  useMantineTheme,
+  Paper
 } from "@mantine/core";
 import { CiCalendarDate } from "react-icons/ci";
 import GiscusComments from "@/components/Contents/GiscusComments/GiscusComments";
 import parse, { DOMNode, HTMLReactParserOptions, domToReact } from "html-react-parser";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
+  { params }: Props
 ): Promise<Metadata> {
   const param = await params;
   const slug = param.slug;
@@ -59,8 +56,7 @@ export async function generateMetadata(
 }
 
 export async function generateStaticParams() {
-  const postsDirectory = path.join(process.cwd(), "src/posts");
-  const filenames = fs.readdirSync(postsDirectory);
+  // const postsDirectory = path.join(process.cwd(), "src/posts");
   const posts = await getPostData();
   return posts.map((post: PostItem) => {
     return {
