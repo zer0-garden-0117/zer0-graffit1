@@ -1,7 +1,7 @@
 ---
 date: "2025-05-12"
 description: ""
-image: "/images/x_api_v2.png"
+image: "/images/trello_font_customize.jpeg"
 tags: ["X", "X API v2", "Twitter"]
 title: "X API v2を使って画像をポストする"
 ---
