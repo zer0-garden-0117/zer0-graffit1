@@ -29,6 +29,7 @@ import {
   Anchor,
   Paper
 } from "@mantine/core";
+import { CodeHighlight } from '@mantine/code-highlight';
 import { CiCalendarDate } from "react-icons/ci";
 import GiscusComments from "@/components/Contents/GiscusComments/GiscusComments";
 import parse, { DOMNode, HTMLReactParserOptions, domToReact } from "html-react-parser";
@@ -71,9 +72,12 @@ async function createPostData(slug: string): Promise<PostItem> {
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
 
+  // h1要素を非表示
+  const contentWithoutH1 = content.replace(/^#\s.+$/gm, '');
+
   const processedContent = await remark()
     .use(html, { sanitize: false })
-    .process(content);
+    .process(contentWithoutH1);
 
   const contentHtml = processedContent.toString();
 
@@ -103,16 +107,16 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
       if (domNode.type === "tag" && domNode.name) {
         switch (domNode.name) {
           case "h1":
-            return (
-              <Title order={1} mt="xl" mb="md">
-                {domToReact(domNode.children as DOMNode[] as DOMNode[], options)}
-              </Title>
-            );
+            return null;
           case "h2":
             return (
-              <Title order={2} mt="xl" mb="md">
-                {domToReact(domNode.children as DOMNode[], options)}
-              </Title>
+              <Stack gap={0}>
+                <Title
+                  order={2} mt="xs"> 
+                  {domToReact(domNode.children as DOMNode[], options)}
+                </Title>
+                <Divider my="1" mb="xs"/>
+                </Stack>
             );
           case "h3":
             return (
@@ -171,8 +175,29 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
               </Box>
             );
           case "code":
-            return <Code>{domToReact(domNode.children as DOMNode[], options)}</Code>;
-          case "img":
+            const getCodeString = (nodes: DOMNode[]): string => {
+              return nodes
+                .map((node) => {
+                  if (node.type === 'text') {
+                    return node.data;
+                  }
+                  if (node.type === 'tag' && node.children) {
+                    return getCodeString(node.children as DOMNode[]);
+                  }
+                  return '';
+                })
+                .join('');
+            };
+            const codeString = domNode.children ? getCodeString(domNode.children as DOMNode[]) : '';
+            return (
+              <CodeHighlight
+                code={codeString} 
+                withCopyButton
+                withExpandButton={false}
+                defaultExpanded={true}
+              />
+            );
+           case "img":
             return (
               <Box
                 my="xl"
@@ -206,26 +231,14 @@ export default async function Post({ params }: Props) {
   return (
     <>
       <Card radius="md" p="xl" withBorder shadow="sm">
-        <Stack gap="lg">
+        <Stack gap="xs">
           {postData.image && (
             <Box
               style={{
                 display: "flex",
                 justifyContent: "center",
-                marginBottom: "16px",
               }}
             >
-              <Image
-                src={postData.image}
-                alt={postData.title}
-                radius="md"
-                fit="contain"
-                style={{
-                  maxHeight: 400,
-                  width: "100%",
-                  objectFit: "cover",
-                }}
-              />
             </Box>
           )}
 
