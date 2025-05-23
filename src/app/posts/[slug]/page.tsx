@@ -45,12 +45,18 @@ export async function generateMetadata(
   const post = await createPostData(slug); 
 
   return {
-    title: `${post.title} | ブログタイトル`,
-    description: `${post.description ?? post.title}`,
+    title: `${post.title} | zer0 graffit1`,
+    description: `${post.contentWithoutHtml}`,
     openGraph: {
-      title: `${post.title} | ブログタイトル`,
-      description: `${post.description ?? post.title}`,
+      title: `${post.title} | zer0 graffit1`,
+      description: `${post.contentWithoutHtml}`,
     },
+    twitter: {
+      card: 'summary',
+      title: `${post.title} | zer0 graffit1`,
+      description: `${post.contentWithoutHtml}`,
+      images: ['/ogp.jpg'],
+    }
   };
 }
 
@@ -73,6 +79,14 @@ async function createPostData(slug: string): Promise<PostItem> {
   // h1要素を非表示
   const contentWithoutH1 = content.replace(/^#\s.+$/gm, '');
 
+  // HTMLタグを含まないプレーンテキストを生成
+  const contentWithoutHtml = contentWithoutH1
+    .replace(/<[^>]*>/g, '') // HTMLタグを削除
+    .replace(/\n+/g, ' ') // 複数改行をスペースに
+    .replace(/\s+/g, ' ') // 連続するスペースを1つに
+    .trim()
+    .substring(0, 200); // 200文字に制限
+
   const processedContent = await remark()
     .use(html, { sanitize: false })
     .process(contentWithoutH1);
@@ -94,6 +108,7 @@ async function createPostData(slug: string): Promise<PostItem> {
     date: data.date,
     tags: data.tags,
     contentHtml: rehypedContent.value.toString(),
+    contentWithoutHtml
   };
 }
 

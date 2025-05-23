@@ -23,6 +23,7 @@ const getPostData = async (): Promise<PostItem[]> => {
         image: data.image,
         tags: data.tags || [],
         contentHtml: "",
+        contentWithoutHtml: "",
       };
     })
     .sort((postA, postB) =>

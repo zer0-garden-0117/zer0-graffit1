@@ -6,6 +6,7 @@ export type PostItem = {
     date: string;
     tags: string[] | null;
     contentHtml: string;
+    contentWithoutHtml: string;
   };
   
   // ページング情報
