@@ -43,6 +43,7 @@ export async function generateMetadata(
   const param = await params;
   const slug = param.slug;
   const post = await createPostData(slug); 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
   return {
     title: `${post.title} | zer0 graffit1`,
@@ -55,7 +56,7 @@ export async function generateMetadata(
       card: 'summary',
       title: `${post.title} | zer0 graffit1`,
       description: `${post.contentWithoutHtml}`,
-      images: ['/ogp.jpg'],
+      images: [`${baseUrl}/ogp.jpg`], 
     }
   };
 }
