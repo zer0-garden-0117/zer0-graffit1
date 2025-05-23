@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { PageData, createPageData, getPostData, getTagsData } from "../../../lib/functions";
 import PostCard from "@/components/Contents/PostCard/PostCard";
 import Pagination from "@/components/Contents/Pagenation/Pagenation";
-import { SimpleGrid, Group } from "@mantine/core";
+import { SimpleGrid, Group, Badge, Space } from "@mantine/core";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -42,6 +42,14 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
 
   return (
     <>
+      {/* タグ */}
+      <Badge
+        color="blue"
+        variant="light"
+      >
+        {decodeURIComponent(slug)}
+      </Badge>
+      <Space my="md" />
       {/* 記事一覧表示 */}
       <SimpleGrid cols={{ base: 1, sm: 1, md: 2 }} spacing="lg">
         {posts.slice(pageData.start, pageData.end).map((post) => (
