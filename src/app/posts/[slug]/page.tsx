@@ -16,7 +16,6 @@ import { getPostData } from "../../../lib/functions";
 import {
   Title,
   Text,
-  Image,
   Group,
   Badge,
   Stack,
@@ -51,7 +50,6 @@ export async function generateMetadata(
     openGraph: {
       title: `${post.title} | ブログタイトル`,
       description: `${post.description ?? post.title}`,
-      images: post.image ? [{ url: post.image }] : [],
     },
   };
 }
@@ -94,7 +92,6 @@ async function createPostData(slug: string): Promise<PostItem> {
     title: data.title,
     description: data.description,
     date: data.date,
-    image: data.image,
     tags: data.tags,
     contentHtml: rehypedContent.value.toString(),
   };
@@ -112,7 +109,9 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
             return (
               <Stack gap={0}>
                 <Title
-                  order={2} mt="xs"> 
+                  order={2}
+                  mt="xs"
+                > 
                   {domToReact(domNode.children as DOMNode[], options)}
                 </Title>
                 <Divider my="1" mb="xs"/>
@@ -206,12 +205,6 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
                   justifyContent: "center",
                 }}
               >
-                <Image
-                  src={domNode.attribs?.src}
-                  alt={domNode.attribs?.alt || ""}
-                  radius="md"
-                  style={{ maxWidth: "100%" }}
-                />
               </Box>
             );
           default:
@@ -232,18 +225,8 @@ export default async function Post({ params }: Props) {
     <>
       <Card radius="md" p="xl" withBorder shadow="sm">
         <Stack gap="xs">
-          {postData.image && (
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-            </Box>
-          )}
-
           <Stack gap="xs">
-            <Title order={1} c="dark">
+            <Title order={1}>
               {postData.title}
             </Title>
 

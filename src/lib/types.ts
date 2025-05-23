@@ -4,7 +4,6 @@ export type PostItem = {
     title: string;
     description?: string;
     date: string;
-    image: string | null;
     tags: string[] | null;
     contentHtml: string;
   };

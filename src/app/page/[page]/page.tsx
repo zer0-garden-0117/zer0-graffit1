@@ -39,7 +39,7 @@ export default async function Page({ params }: PageProps) {
   return (
     <>
       {/* 記事一覧表示 */}
-      <SimpleGrid cols={{ base: 2, sm: 3, md: 4 }} spacing="lg">
+      <SimpleGrid cols={{ base: 1, sm: 1, md: 2 }} spacing="lg">
         {posts.slice(pageData.start, pageData.end).map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}
