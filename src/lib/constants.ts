@@ -1,3 +1,3 @@
-const POSTS_PER_PAGE = 1;
+const POSTS_PER_PAGE = 4;
 
 export { POSTS_PER_PAGE };
