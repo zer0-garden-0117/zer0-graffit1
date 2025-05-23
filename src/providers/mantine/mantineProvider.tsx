@@ -1,4 +1,5 @@
 import '@mantine/core/styles.css';
+import '@mantine/code-highlight/styles.css';
 import { type ReactNode } from "react";
 import { MantineProvider } from '@mantine/core';
 import localFont from "next/font/local";

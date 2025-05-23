@@ -301,6 +301,14 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.2.0"
 
+"@mantine/code-highlight@^8.0.1":
+  version "8.0.1"
+  resolved "https://registry.yarnpkg.com/@mantine/code-highlight/-/code-highlight-8.0.1.tgz#cd2c277b9c2981c256e0861cb8fd38805a617edb"
+  integrity sha512-6rL4WuCSLqUA1KcI+J2UU3VI1TrqpUQggyc3CCUyQvBLbv5LvhIhncM3PheTBZlcONgWWaXQhAnFfQHs+pJxTQ==
+  dependencies:
+    clsx "^2.1.1"
+    highlight.js "^11.10.0"
+
 "@mantine/core@^8.0.0":
   version "8.0.0"
   resolved "https://registry.npmjs.org/@mantine/core/-/core-8.0.0.tgz"
@@ -2267,6 +2275,11 @@ hastscript@^9.0.0:
     hast-util-parse-selector "^4.0.0"
     property-information "^7.0.0"
     space-separated-tokens "^2.0.0"
+
+highlight.js@^11.10.0:
+  version "11.11.1"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-11.11.1.tgz#fca06fa0e5aeecf6c4d437239135fabc15213585"
+  integrity sha512-Xwwo44whKBVCYoliBQwaPvtd/2tYFkRQtXDWj1nackaV2JPXx3L0+Jvd8/qCJ2p+ML0/XVkJ2q+Mr+UVdpJK5w==
 
 html-dom-parser@5.1.1:
   version "5.1.1"
