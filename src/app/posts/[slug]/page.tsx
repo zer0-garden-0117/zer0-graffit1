@@ -216,6 +216,9 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
                     wordBreak: "break-word",
                     overflowWrap: "break-word",
                   },
+                  control: {
+                    color: 'var(--mantine-color-gray-6)',
+                  },
                 }}
               />
             );
