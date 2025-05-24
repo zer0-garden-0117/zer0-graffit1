@@ -25,7 +25,8 @@ import {
   Space,
   Blockquote,
   Code,
-  Anchor
+  Anchor,
+  List
 } from "@mantine/core";
 import { CodeHighlight } from '@mantine/code-highlight';
 import { CiCalendarDate } from "react-icons/ci";
@@ -140,22 +141,22 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
             );
           case "p":
             return (
-              <Text mb="md" size="lg">
+              <Text size="lg">
                 {domToReact(domNode.children as DOMNode[], options)}
               </Text>
             );
-          // case "ul":
-          //   return (
-          //     <List withPadding mb="md" size="lg">
-          //       {domToReact(domNode.children as DOMNode[], options)}
-          //     </List>
-          //   );
-          // case "ol":
-          //   return (
-          //     <List type="ordered" withPadding mb="md" size="lg">
-          //       {domToReact(domNode.children as DOMNode[], options)}
-          //     </List>
-          //   );
+          case "ul":
+            return (
+              <List withPadding>
+                {domToReact(domNode.children as DOMNode[], options)}
+              </List>
+            );
+          case "ol":
+            return (
+              <List type="ordered" withPadding>
+                {domToReact(domNode.children as DOMNode[], options)}
+              </List>
+            );
           // case "li":
           //   return (
           //     <List withPadding mb="md" size="lg">1
