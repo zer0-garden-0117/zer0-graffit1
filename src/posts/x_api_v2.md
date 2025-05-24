@@ -23,33 +23,26 @@ title: "X API v2を使って画像をポストする"
 ## X Developersの設定（登録、プロジェクトとアプリ作成、認証設定）
 
 下記を参考に設定しました。
-
  - [X APIを使用する](https://qiita.com/hisashi_matsui/items/55e445b6a34a522dcbd8#oauth-20-flow-with-pkce%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%97%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E3%82%92%E5%8F%96%E5%BE%97%E3%81%99%E3%82%8B)
 
 ## 認可リクエスト
 
 下記の認可URLに、自身の<YOUR\_CLIENT\_ID>、<YOUR\_REDIRECT\_URL>をセットして、ブラウザで開いてください。
-
 ```
 https://twitter.com/i/oauth2/authorize?response_type=code&client_id=<YOUR_CLIENT_ID>&redirect_uri=<YOUR_REDIRECT_URL>&scope=tweet.read%20tweet.write%20users.read%20offline.access%20media.write&state=state&code_challenge=challenge&code_challenge_method=plain
 ```
 
 この時のポイントは、scopeにmedia.writeを含めること。
-
 このscopeがないと、後々の画像アップロードで403エラーになります。
-
 認可を実行すると、指定したリダイレクトURLへ遷移し、認可Codeが返されます。
-
 ```
 <YOUR_REDIRECT_URL>/?state=state&code=xxxxxxxxxxxx
 ```
-
 これのcode=移行が認可Codeになります。
 
 ## トークンリクエスト
 
 先ほどの認可Codeを使って、OAuth2に認証トークンをリクエストします。
-
 ```
 curl --location --request POST 'https://api.twitter.com/2/oauth2/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
@@ -60,9 +53,7 @@ curl --location --request POST 'https://api.twitter.com/2/oauth2/token' \
 --data-urlencode 'code_verifier=challenge' \
 --data-urlencode 'client_id=<YOUR_CLIENT_ID>'
 ```
-
 成功すると下記が返されます。
-
 ```
 {
  "token_type":"bearer",
@@ -72,7 +63,6 @@ curl --location --request POST 'https://api.twitter.com/2/oauth2/token' \
  "refresh_token"yyyy"
 }
 ```
-
 この中のaccess\_tokenを使ってX API v2を呼び出ししていきます。
 
 ## X API v2を使ってメディアリクエスト

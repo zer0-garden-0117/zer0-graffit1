@@ -20,10 +20,8 @@ trelloのフォントをPlemolJPにする
 
 スクリプトが設定できるものなら何でもいいですが、
 例としてViolentmonkeyをインストールします。
-https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag
-
-Violentmonkeyの紹介記事
-https://gigazine.net/news/20210211-violentmonkey/
+ - [Violentmonkey (Chrome拡張)](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)
+ - [Violentmonkeyの紹介記事 (Gigazine)](https://gigazine.net/news/20210211-violentmonkey/)
 
 ## trelloのフォントを上書きするスクリプトを設定
 
@@ -52,4 +50,4 @@ GM_addStyle(`
 ```
 
 ちなみに、このスクリプトは下記でも公開しています。
-https://greasyfork.org/ja/scripts/536875-trello-font-customizer
+- [trello-font-customizer (greasyfork)](https://greasyfork.org/ja/scripts/536875-trello-font-customizer)
