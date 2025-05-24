@@ -209,6 +209,13 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
                 withCopyButton
                 withExpandButton={false}
                 defaultExpanded={true}
+                styles={{
+                  pre: {
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    overflowWrap: "break-word",
+                  },
+                }}
               />
             );
            case "img":
