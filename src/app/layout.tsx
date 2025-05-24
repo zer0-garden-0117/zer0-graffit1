@@ -8,7 +8,7 @@ import { AppShellLayout } from '@/components/AppShellLayout/AppShellLayout';
 import { CustomMantineProvider } from '@/providers/mantine/mantineProvider';
 
 export const metadata = {
-  title: 'My Mantine app',
+  title: 'zer0 graffit1',
   description: 'I have followed setup instructions carefully',
 };
 

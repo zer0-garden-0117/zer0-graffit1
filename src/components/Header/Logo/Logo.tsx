@@ -24,7 +24,7 @@ export const Logo: React.FC<LogoProps> = () => {
       }}
     >
       <TextAnimate.Typewriter
-        value="er0 Graffit1"
+        value="er0 graffit1"
         leftSection={
           <Text c="blue" size="xl" fw={700}>
             z
