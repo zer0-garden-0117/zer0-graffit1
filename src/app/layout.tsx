@@ -6,6 +6,7 @@ import '@gfazioli/mantine-text-animate/styles.css';
 import { ColorSchemeScript, mantineHtmlProps } from '@mantine/core';
 import { AppShellLayout } from '@/components/AppShellLayout/AppShellLayout';
 import { CustomMantineProvider } from '@/providers/mantine/mantineProvider';
+import ClientGoogleAnalytics from '@/app/googleAnalytics';
 
 export const metadata = {
   title: 'zer0 graffit1',
@@ -28,6 +29,7 @@ export default function RootLayout({
             {children}
           </AppShellLayout>
         </CustomMantineProvider>
+        <ClientGoogleAnalytics />
       </body>
     </html>
   );
