@@ -119,8 +119,17 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
     replace: (domNode) => {
       if (domNode.type === "tag" && domNode.name) {
         switch (domNode.name) {
+          // 各HTML要素に対するMantineコンポーネントの割り当て
           case "h1":
-            return null;
+            <Stack gap={0}>
+              <Title
+                order={1}
+                mt="xs"
+              > 
+                {domToReact(domNode.children as DOMNode[], options)}
+              </Title>
+              <Divider my="1" mb="xs"/>
+              </Stack>
           case "h2":
             return (
               <Stack gap={0}>
@@ -157,12 +166,6 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
                 {domToReact(domNode.children as DOMNode[], options)}
               </List>
             );
-          // case "li":
-          //   return (
-          //     <List withPadding mb="md" size="lg">1
-          //       {domToReact(domNode.children as DOMNode[], options)}
-          //     </List>
-          //   );
           case "a":
             return (
               <Anchor
