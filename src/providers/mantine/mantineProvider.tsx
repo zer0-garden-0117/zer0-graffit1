@@ -19,6 +19,16 @@ export const CustomMantineProvider: React.FC<CustomMantineProviderProps> = ({ ch
       theme={{
         fontFamily: `${premolJP.style.fontFamily}, sans-serif`,
         headings: { fontFamily: `${premolJP.style.fontFamily}, sans-serif` },
+        fontFamilyMonospace: `${premolJP.style.fontFamily}, monospace`, // 追加
+        components: {
+          CodeHighlight: {
+            styles: {
+              code: {
+                fontFamily: `${premolJP.style.fontFamily}, monospace`,
+              },
+            },
+          },
+        },
       }}
     >
       {children}

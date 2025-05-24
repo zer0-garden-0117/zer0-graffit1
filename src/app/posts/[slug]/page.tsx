@@ -25,8 +25,7 @@ import {
   Space,
   Blockquote,
   Code,
-  Anchor,
-  Paper
+  Anchor
 } from "@mantine/core";
 import { CodeHighlight } from '@mantine/code-highlight';
 import { CiCalendarDate } from "react-icons/ci";
@@ -285,9 +284,7 @@ export default async function Post({ params }: Props) {
 
           <Divider />
 
-          <Paper p="md" withBorder>
-            <MantineMarkdownRenderer html={postData.contentHtml} />
-          </Paper>
+          <MantineMarkdownRenderer html={postData.contentHtml} />
         </Stack>
       </Card>
       <Space h={"md"} />
