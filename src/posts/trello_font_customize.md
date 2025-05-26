@@ -27,7 +27,7 @@ trelloのフォントをPlemolJPにする
 
 下記のスクリプトをコピーしてtrelloのサイトで有効にしてください。
 下記ではフォントにPlemolJPを設定していますが、任意のフォントに修正してください。
-```
+```jsx
 // ==UserScript==
 // @name        Trello Font Customizer
 // @namespace   Violentmonkey Scripts

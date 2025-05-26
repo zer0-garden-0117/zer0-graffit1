@@ -44,7 +44,7 @@ zer0 graffit1の目的は、開発メモを簡単にアップすること。そ�
 
 具体的には、html-react-parserを使用して、HTML要素にMantineコンポーネントを割り当てて見栄えを良くしました。
 
-```
+```tsx
 const MantineMarkdownRenderer = ({ html }: { html: string }) => {
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
@@ -61,7 +61,7 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
 
 各HTMLに対するMantineコンポーネントの割り当てについては、例えば、下記のようにh2だとMantineUIのTitleを使って表示しDividerでアンダーラインを入れたりしました。
 
-```
+```tsx
 case "h2":
   return (
     <Stack gap={0}>
