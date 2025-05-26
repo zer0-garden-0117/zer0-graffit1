@@ -7,7 +7,6 @@ import matter from "gray-matter";
 // すべてのposts内データを取得
 const getPostData = async (): Promise<PostItem[]> => {
   const postsDirectory = path.join(process.cwd(), "src/posts");
-  console.log(postsDirectory)
   const filenames = fs.readdirSync(postsDirectory);
   const posts = filenames
     .map((filename) => {

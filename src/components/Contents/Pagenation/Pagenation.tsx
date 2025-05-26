@@ -14,7 +14,6 @@ const Pagination = ({ type, pages = [] }: PageProps) => {
   const router = useRouter()
   const params = useParams();
   const pageFromUrl = params.page ? Number(params.page) : 1;
-  console.log(pageFromUrl)
   const [currentPage, setCurrentPage] = useState<number>(pageFromUrl);
   const onPageChange = (page: number) => {
     setCurrentPage(page)
