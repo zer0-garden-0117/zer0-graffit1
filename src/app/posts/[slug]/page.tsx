@@ -26,7 +26,8 @@ import {
   Blockquote,
   Code,
   Anchor,
-  List
+  List,
+  Image
 } from "@mantine/core";
 import { CodeHighlight } from '@mantine/code-highlight';
 import { CiCalendarDate } from "react-icons/ci";
@@ -240,14 +241,15 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
             );
            case "img":
             return (
-              <Box
-                my="xl"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-              </Box>
+                <Image
+                  src={domNode.attribs?.src}
+                  style={{
+                    maxWidth: "100%",
+                    height: "auto",
+                    borderRadius: "var(--mantine-radius-md)",
+                  }}
+                />
+              // </Box>
             );
           case "del":
           case "s":
