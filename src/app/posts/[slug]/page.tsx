@@ -33,6 +33,7 @@ import { CiCalendarDate } from "react-icons/ci";
 import GiscusComments from "@/components/Contents/GiscusComments/GiscusComments";
 import parse, { DOMNode, HTMLReactParserOptions, domToReact } from "html-react-parser";
 import { IconExternalLink } from '@tabler/icons-react';
+import remarkGfm from 'remark-gfm'
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -90,6 +91,7 @@ async function createPostData(slug: string): Promise<PostItem> {
     .substring(0, 200); // 200文字に制限
 
   const processedContent = await remark()
+    .use(remarkGfm)
     .use(html, { sanitize: false })
     .process(contentWithoutH1);
 
@@ -122,15 +124,17 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
         switch (domNode.name) {
           // 各HTML要素に対するMantineコンポーネントの割り当て
           case "h1":
-            <Stack gap={0}>
-              <Title
-                order={1}
-                mt="xs"
-              > 
-                {domToReact(domNode.children as DOMNode[], options)}
-              </Title>
-              <Divider my="1" mb="xs"/>
+            return (
+              <Stack gap={0}>
+                <Title
+                  order={1}
+                  mt="xs"
+                > 
+                  {domToReact(domNode.children as DOMNode[], options)}
+                </Title>
+                <Divider my="1" mb="xs"/>
               </Stack>
+            );
           case "h2":
             return (
               <Stack gap={0}>
@@ -244,6 +248,13 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
                 }}
               >
               </Box>
+            );
+          case "del":
+          case "s":
+            return (
+              <Text span style={{ textDecoration: "line-through" }}>
+                {domToReact(domNode.children as DOMNode[], options)}
+              </Text>
             );
           default:
             return null;
