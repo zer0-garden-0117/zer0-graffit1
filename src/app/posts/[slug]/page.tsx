@@ -32,6 +32,7 @@ import { CodeHighlight } from '@mantine/code-highlight';
 import { CiCalendarDate } from "react-icons/ci";
 import GiscusComments from "@/components/Contents/GiscusComments/GiscusComments";
 import parse, { DOMNode, HTMLReactParserOptions, domToReact } from "html-react-parser";
+import { IconExternalLink } from '@tabler/icons-react';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -168,14 +169,18 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
             );
           case "a":
             return (
-              <Anchor
-                href={domNode.attribs?.href}
-                target="_blank"
-                rel="nofollow"
-                underline='always'
-              >
-                {domToReact(domNode.children as DOMNode[], options)}
-              </Anchor>
+              <>
+                <Anchor
+                  href={domNode.attribs?.href}
+                  target="_blank"
+                  rel="nofollow"
+                  underline='always'
+                  mr={1}
+                >
+                  {domToReact(domNode.children as DOMNode[], options)}
+                </Anchor>
+                <IconExternalLink stroke={1.5} size={12} color="var(--mantine-color-anchor)"/>
+              </>
             );
           case "blockquote":
             return (
