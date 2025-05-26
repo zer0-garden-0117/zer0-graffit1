@@ -212,12 +212,16 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
                 .join('');
             };
             const codeString = domNode.children ? getCodeString(domNode.children as DOMNode[]) : '';
+            const classNames = domNode.attribs?.class || '';
+            const languageMatch = classNames.match(/language-(\w+)/);
+            const language = languageMatch ? languageMatch[1] : 'tsx';
             return (
               <CodeHighlight
                 code={codeString} 
                 withCopyButton
                 withExpandButton={false}
                 defaultExpanded={true}
+                language={language}
                 styles={{
                   pre: {
                     whiteSpace: "pre-wrap",
