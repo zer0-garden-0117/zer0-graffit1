@@ -7,7 +7,7 @@ import { ReactNode } from 'react';
 async function loadShiki() {
   const { createHighlighter } = await import('shiki');
   const shiki = await createHighlighter({
-    langs: ['tsx', 'scss', 'html', 'bash', 'json', 'python', 'java'],
+    langs: ['tsx', 'jsx', 'scss', 'html', 'bash', 'json', 'python', 'java'],
     themes: ['github-dark'],
   });
   await shiki.loadTheme('github-dark'); 
