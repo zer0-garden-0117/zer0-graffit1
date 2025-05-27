@@ -17,7 +17,7 @@ export default async function Home() {
       </SimpleGrid>
 
       {/* ページネーション */}
-      <Group justify="center" mt="xl">
+      <Group justify="flex-end" mt="xl">
         <Pagination
           type="page"
           pages={pageData.pages}

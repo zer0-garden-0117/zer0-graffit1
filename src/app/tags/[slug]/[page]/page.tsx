@@ -83,7 +83,7 @@ export default async function TagPage({
       </SimpleGrid>
 
       {/* ページネーション */}
-      <Group justify="center" mt="xl">
+      <Group justify="flex-end" mt="xl">
         <Pagination
           type={`tags/${param.slug}`}
           pages={pageData.pages}

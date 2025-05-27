@@ -58,7 +58,7 @@ export default async function TagPage({ params }: { params: Promise<{ slug: stri
       </SimpleGrid>
 
       {/* ページネーション */}
-      <Group justify="center" mt="xl">
+      <Group justify="flex-end" mt="xl">
         <Pagination
           type={`tags/${slug}`}
           pages={pageData.pages}

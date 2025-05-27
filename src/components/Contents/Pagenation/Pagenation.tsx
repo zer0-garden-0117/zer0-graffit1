@@ -25,6 +25,9 @@ const Pagination = ({ type, pages = [] }: PageProps) => {
 
   return (
     <MantinePagination
+      color='blue'
+      size="sm"
+      radius='md'
       onChange={onPageChange}
       total={totalPages}
       value={currentPage}
