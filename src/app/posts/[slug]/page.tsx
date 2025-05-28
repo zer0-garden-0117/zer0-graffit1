@@ -241,15 +241,15 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
             );
            case "img":
             return (
-                <Image
-                  src={domNode.attribs?.src}
-                  style={{
-                    maxWidth: "100%",
-                    height: "auto",
-                    borderRadius: "var(--mantine-radius-md)",
-                  }}
-                />
-              // </Box>
+              <Image
+                src={domNode.attribs?.src}
+                alt=""
+                style={{
+                  maxWidth: "100%",
+                  height: "auto",
+                  borderRadius: "var(--mantine-radius-md)",
+                }}
+              />
             );
           case "del":
           case "s":
