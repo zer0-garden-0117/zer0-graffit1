@@ -156,7 +156,13 @@ const MantineMarkdownRenderer = ({ html }: { html: string }) => {
             );
           case "p":
             return (
-              <Text size="lg">
+              <Text
+                style={{
+                  wordWrap: "break-word",
+                  overflowWrap: "break-word",
+                  whiteSpace: "normal",
+                }}
+              >
                 {domToReact(domNode.children as DOMNode[], options)}
               </Text>
             );
