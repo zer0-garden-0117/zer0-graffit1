@@ -1,20 +1,20 @@
 ---
 date: "2025-05-23"
 description: ""
-tags: ["trello", "font", "フォント", "PlemolJP"]
+tags: ["Trello", "font", "フォント", "PlemolJP"]
 title: "trelloのフォントをカスタマイズする"
 ---
 
-# trelloのフォントをカスタマイズする
+# Trelloのフォントをカスタマイズする
 
 ## やりたいこと
 
-trelloのフォントをPlemolJPにする
+TrelloのフォントをPlemolJPにする
 
 ## 手順
 
 1. Chrome拡張のユーザースクリプト管理ツールを入れる
-2. trelloのフォントを上書きするスクリプトを設定
+2. TrelloのフォントをPlemolJPにする
 
 ## Chrome拡張のユーザースクリプト管理ツールを入れる
 
@@ -23,9 +23,9 @@ trelloのフォントをPlemolJPにする
  - [Violentmonkey (Chrome拡張)](https://chromewebstore.google.com/detail/violentmonkey/jinjaccalgkegednnccohejagnlnfdag)
  - [Violentmonkeyの紹介記事 (Gigazine)](https://gigazine.net/news/20210211-violentmonkey/)
 
-## trelloのフォントを上書きするスクリプトを設定
+## Trelloのフォントを上書きするスクリプトを設定
 
-下記のスクリプトをコピーしてtrelloのサイトで有効にしてください。
+下記のスクリプトをコピーしてTrelloのサイトで有効にしてください。
 下記ではフォントにPlemolJPを設定していますが、任意のフォントに修正してください。
 ```jsx
 // ==UserScript==
