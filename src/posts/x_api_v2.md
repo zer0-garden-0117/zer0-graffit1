@@ -28,7 +28,7 @@ title: "X API v2を使って画像をポストする"
 ## 認可リクエスト
 
 下記の認可URLに、自身の<YOUR\_CLIENT\_ID>、<YOUR\_REDIRECT\_URL>をセットして、ブラウザで開いてください。
-```bash
+```sh
 https://twitter.com/i/oauth2/authorize?response_type=code&client_id=<YOUR_CLIENT_ID>&redirect_uri=<YOUR_REDIRECT_URL>&scope=tweet.read%20tweet.write%20users.read%20offline.access%20media.write&state=state&code_challenge=challenge&code_challenge_method=plain
 ```
 
@@ -43,15 +43,15 @@ https://twitter.com/i/oauth2/authorize?response_type=code&client_id=<YOUR_CLIENT
 ## トークンリクエスト
 
 先ほどの認可Codeを使って、OAuth2に認証トークンをリクエストします。
-```bash
-curl --location --request POST 'https://api.twitter.com/2/oauth2/token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---header 'Authorization: Basic <YOUR_BASE64_SECRETS>' \
---data-urlencode 'code=<YOUR_AUTHORIZATION_Code>' \
---data-urlencode 'grant_type=authorization_code' \
---data-urlencode 'redirect_uri=<YOUR_REDIRECT_URL>' \
---data-urlencode 'code_verifier=challenge' \
---data-urlencode 'client_id=<YOUR_CLIENT_ID>'
+```sh
+curl -X POST 'https://api.twitter.com/2/oauth2/token' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Authorization: Basic <YOUR_BASE64_SECRETS>' \
+  -d 'code=<YOUR_AUTHORIZATION_Code>' \
+  -d 'grant_type=authorization_code' \
+  -d 'redirect_uri=<YOUR_REDIRECT_URL>' \
+  -d 'code_verifier=challenge' \
+  -d 'client_id=<YOUR_CLIENT_ID>'
 ```
 成功すると下記が返されます。
 ```json
@@ -67,10 +67,10 @@ curl --location --request POST 'https://api.twitter.com/2/oauth2/token' \
 
 ## X API v2を使ってメディアリクエスト
 
-```bash
-curl -v -X POST 'https://api.twitter.com/2/media/upload' \
---header 'Authorization: Bearer <YOUR_ACCESS_TOKEN>' \
--F 'media=@"<YOUR_IMAGE_FILE>"'
+```sh
+curl -X POST 'https://api.twitter.com/2/media/upload' \
+  -H 'Authorization: Bearer <YOUR_ACCESS_TOKEN>' \
+  -F 'media=@"<YOUR_IMAGE_FILE>"'
 ```
 
 成功したら下記が返されます。
@@ -94,11 +94,11 @@ curl -v -X POST 'https://api.twitter.com/2/media/upload' \
 
 ## X API v2を使って画像付き投稿
 
-```bash
+```sh
 curl -X POST 'https://api.twitter.com/2/tweets' \
-  --header 'Authorization: Bearer <YOUR_ACCESS_TOKEN>' \
-  --header 'Content-Type: application/json' \
-  --data '{
+  -H 'Authorization: Bearer <YOUR_ACCESS_TOKEN>' \
+  -H 'Content-Type: application/json' \
+  -d '{
     "text": "X APIから画像付きの投稿テスト",
     "media": {
       "media_ids": ["<YOUR_MEDIA_ID>"]
